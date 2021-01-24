@@ -18,10 +18,11 @@ public class FlightBookingServiceFake implements FlightBookingService {
             return FlightBookingResult.FAILURE;
         }
 
-        if (r >= 3000 ) {
-            println(cart, "exception! (retry in " + getRetryDelay() + " seconds)");
-            throw new RuntimeException("failing request");
-        }
+        // uncomment lines below to test task retries
+//        if (r >= 3000 ) {
+//            println(cart, "exception! (retry in " + getRetryDelay() + " seconds)");
+//            throw new RuntimeException("failing request");
+//        }
 
         println(cart, "succeeded");
         return FlightBookingResult.SUCCESS;
