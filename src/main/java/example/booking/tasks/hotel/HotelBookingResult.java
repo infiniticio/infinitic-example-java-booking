@@ -1,4 +1,4 @@
-package infinitic.example.java.booking.tasks.hotel;
+package example.booking.tasks.hotel;
 
 public enum HotelBookingResult {
     SUCCESS,

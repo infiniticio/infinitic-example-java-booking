@@ -1,9 +1,9 @@
-package infinitic.example.java.booking;
+package example.booking;
 
-import infinitic.example.java.booking.tasks.carRental.CarRentalCart;
-import infinitic.example.java.booking.tasks.flight.FlightBookingCart;
-import infinitic.example.java.booking.tasks.hotel.HotelBookingCart;
-import infinitic.example.java.booking.workflows.BookingWorkflow;
+import example.booking.tasks.carRental.CarRentalCart;
+import example.booking.tasks.flight.FlightBookingCart;
+import example.booking.tasks.hotel.HotelBookingCart;
+import example.booking.workflows.BookingWorkflow;
 import io.infinitic.pulsar.InfiniticClient;
 import java.util.UUID;
 

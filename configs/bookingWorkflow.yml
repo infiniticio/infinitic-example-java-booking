@@ -1,4 +1,4 @@
 workflows:
-  - name: infinitic.example.java.booking.workflows.BookingWorkflow
-    class: infinitic.example.java.booking.workflows.BookingWorkflowImpl
+  - name: example.booking.workflows.BookingWorkflow
+    class: example.booking.workflows.BookingWorkflowImpl
     concurrency: 5

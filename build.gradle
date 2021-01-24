@@ -20,7 +20,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClassName = "infinitic.example.java.booking.Worker"
+    mainClassName = "example.booking.Worker"
 }
 
 java {
@@ -30,12 +30,12 @@ java {
 
 task setupPulsar(type: JavaExec) {
     group = "infinitic"
-    main = "infinitic.example.java.booking.Setup"
+    main = "example.booking.Setup"
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task startWorkflow(type: JavaExec) {
     group = "infinitic"
-    main = "infinitic.example.java.booking.Client"
+    main = "example.booking.Client"
     classpath = sourceSets.main.runtimeClasspath
 }

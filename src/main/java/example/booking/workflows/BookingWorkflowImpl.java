@@ -1,8 +1,14 @@
-package infinitic.example.java.booking.workflows;
+package example.booking.workflows;
 
-import infinitic.example.java.booking.tasks.carRental.*;
-import infinitic.example.java.booking.tasks.flight.*;
-import infinitic.example.java.booking.tasks.hotel.*;
+import example.booking.tasks.carRental.CarRentalCart;
+import example.booking.tasks.carRental.CarRentalResult;
+import example.booking.tasks.carRental.CarRentalService;
+import example.booking.tasks.flight.FlightBookingCart;
+import example.booking.tasks.flight.FlightBookingResult;
+import example.booking.tasks.flight.FlightBookingService;
+import example.booking.tasks.hotel.HotelBookingCart;
+import example.booking.tasks.hotel.HotelBookingResult;
+import example.booking.tasks.hotel.HotelBookingService;
 import io.infinitic.workflows.*;
 
 public class BookingWorkflowImpl extends AbstractWorkflow implements BookingWorkflow {

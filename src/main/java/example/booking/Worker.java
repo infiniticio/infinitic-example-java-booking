@@ -1,4 +1,4 @@
-package infinitic.example.java.booking;
+package example.booking;
 
 import io.infinitic.pulsar.InfiniticWorker;
 

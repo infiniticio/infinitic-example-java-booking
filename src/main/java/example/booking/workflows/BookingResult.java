@@ -1,4 +1,4 @@
-package infinitic.example.java.booking.workflows;
+package example.booking.workflows;
 
 public enum BookingResult {
     SUCCESS,

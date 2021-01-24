@@ -1,4 +1,4 @@
-package infinitic.example.java.booking.tasks.carRental;
+package example.booking.tasks.carRental;
 
 public class CarRentalServiceFake implements CarRentalService {
     @Override

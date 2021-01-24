@@ -1,4 +1,4 @@
-package infinitic.example.java.booking.tasks.flight;
+package example.booking.tasks.flight;
 
 public class FlightBookingServiceFake implements FlightBookingService {
     @Override
