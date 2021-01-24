@@ -1,0 +1,4 @@
+tasks:
+  - name: infinitic.example.java.booking.tasks.flight.FlightBookingService
+    class: infinitic.example.java.booking.tasks.flight.FlightBookingServiceFake
+    concurrency: 5

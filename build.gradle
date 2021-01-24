@@ -1,0 +1,41 @@
+plugins {
+    // Apply the java plugin to add support for Java
+    id 'java'
+
+    // Apply the application plugin to add support for building a CLI application.
+    id 'application'
+}
+
+repositories {
+    maven { url = "http://oss.sonatype.org/content/repositories/snapshots" }
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    implementation "org.slf4j:slf4j-simple:1.7.+"
+    implementation "io.infinitic:infinitic-pulsar:0.1.0-SNAPSHOT"
+    implementation "io.infinitic:infinitic-client:0.1.0-SNAPSHOT"
+}
+
+application {
+    // Define the main class for the application.
+    mainClassName = "infinitic.example.java.booking.Worker"
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+task setupPulsar(type: JavaExec) {
+    group = "infinitic"
+    main = "infinitic.example.java.booking.Setup"
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task startWorkflow(type: JavaExec) {
+    group = "infinitic"
+    main = "infinitic.example.java.booking.Client"
+    classpath = sourceSets.main.runtimeClasspath
+}

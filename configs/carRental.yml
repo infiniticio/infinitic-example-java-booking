@@ -1,0 +1,4 @@
+tasks:
+  - name: infinitic.example.java.booking.tasks.carRental.CarRentalService
+    class: infinitic.example.java.booking.tasks.carRental.CarRentalServiceFake
+    concurrency: 5
