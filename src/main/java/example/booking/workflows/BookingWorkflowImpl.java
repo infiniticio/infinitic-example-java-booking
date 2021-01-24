@@ -1,14 +1,8 @@
 package example.booking.workflows;
 
-import example.booking.tasks.carRental.CarRentalCart;
-import example.booking.tasks.carRental.CarRentalResult;
-import example.booking.tasks.carRental.CarRentalService;
-import example.booking.tasks.flight.FlightBookingCart;
-import example.booking.tasks.flight.FlightBookingResult;
-import example.booking.tasks.flight.FlightBookingService;
-import example.booking.tasks.hotel.HotelBookingCart;
-import example.booking.tasks.hotel.HotelBookingResult;
-import example.booking.tasks.hotel.HotelBookingService;
+import example.booking.tasks.carRental.*;
+import example.booking.tasks.flight.*;
+import example.booking.tasks.hotel.*;
 import io.infinitic.workflows.*;
 
 public class BookingWorkflowImpl extends AbstractWorkflow implements BookingWorkflow {

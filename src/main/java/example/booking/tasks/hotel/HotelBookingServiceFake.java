@@ -4,7 +4,7 @@ public class HotelBookingServiceFake implements HotelBookingService {
     @Override
     public HotelBookingResult book(HotelBookingCart cart) {
         // fake emulation of success/failure
-        println(cart, "booking ...");
+        println(cart, "booking...");
 
         long r = (long) (Math.random() * 5000);
         try {
