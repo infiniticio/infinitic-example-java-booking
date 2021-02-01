@@ -17,11 +17,13 @@ public class Client {
         FlightBookingCart flightCart = new FlightBookingCart(getId());
         HotelBookingCart hotelCart = new HotelBookingCart(getId());
 
-        // starting a workflow
-        client.startWorkflowAsync(
-                BookingWorkflow.class,
+        // create a stub from BookingWorkflow interface
+        BookingWorkflow bookingWorkflow = client.workflow(BookingWorkflow.class);
+        // dispatch a workflow
+        client.async(
+                bookingWorkflow,
                 w -> w.book(carRentalCart, flightCart, hotelCart)
-        ).join();
+        );
 
         // closing underlying PulsarClient
         client.close();
