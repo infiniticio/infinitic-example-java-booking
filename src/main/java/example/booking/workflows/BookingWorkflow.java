@@ -5,7 +5,7 @@ import example.booking.tasks.hotel.HotelBookingCart;
 import example.booking.tasks.carRental.CarRentalCart;
 import io.infinitic.workflows.Workflow;
 
-public interface BookingWorkflow extends Workflow {
+public interface BookingWorkflow {
     BookingResult book(
             CarRentalCart carRentalCart,
             FlightBookingCart flightCart,

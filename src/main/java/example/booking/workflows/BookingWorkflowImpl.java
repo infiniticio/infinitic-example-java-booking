@@ -5,7 +5,7 @@ import example.booking.tasks.flight.*;
 import example.booking.tasks.hotel.*;
 import io.infinitic.workflows.*;
 
-public class BookingWorkflowImpl extends AbstractWorkflow implements BookingWorkflow {
+public class BookingWorkflowImpl extends Workflow implements BookingWorkflow {
     private final CarRentalService carRentalService = task(CarRentalService.class);
     private final FlightBookingService flightService = task(FlightBookingService.class);
     private final HotelBookingService hotelService = task(HotelBookingService.class);
@@ -23,9 +23,9 @@ public class BookingWorkflowImpl extends AbstractWorkflow implements BookingWork
         Deferred<HotelBookingResult> hotel = async(hotelService, t -> t.book(hotelCart));
 
         // wait and assign results
-        CarRentalResult carRentalResult = carRental.result(); // wait and assign result for CarRentalService::book
-        FlightBookingResult flightResult = flight.result(); // wait and assign result for FlightService::book method
-        HotelBookingResult hotelResult = hotel.result(); // wait and assign result for HotelService::book method
+        CarRentalResult carRentalResult = carRental.await(); // wait and assign result for CarRentalService::book
+        FlightBookingResult flightResult = flight.await(); // wait and assign result for FlightService::book method
+        HotelBookingResult hotelResult = hotel.await(); // wait and assign result for HotelService::book method
 
         // if at least one of the booking is failed than cancel all successful bookings
         if (carRentalResult == CarRentalResult.FAILURE ||
