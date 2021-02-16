@@ -7,7 +7,7 @@ public class Setup {
     public static void main(String[] args) throws PulsarClientException {
         InfiniticAdmin infiniticAdmin = InfiniticAdmin.fromConfigFile("configs/infinitic.yml");
 
-        infiniticAdmin.init();
+        infiniticAdmin.setupPulsar();
         infiniticAdmin.close();
     }
 }
