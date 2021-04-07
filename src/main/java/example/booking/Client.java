@@ -19,7 +19,7 @@ public class Client {
         HotelBookingCart hotelCart = new HotelBookingCart(getId());
 
         // create a stub for BookingWorkflow
-        BookingWorkflow bookingWorkflow = client.workflow(BookingWorkflow.class);
+        BookingWorkflow bookingWorkflow = client.newWorkflow(BookingWorkflow.class);
 
         // dispatch workflow
         client.async(
@@ -27,10 +27,7 @@ public class Client {
             w -> w.book(carRentalCart, flightCart, hotelCart)
         );
 
-        // dispatch workflow and get result
-        BookingResult result = bookingWorkflow.book(carRentalCart, flightCart, hotelCart);
-
-        System.out.println(result);
+        System.out.println("workflow " + BookingWorkflow.class.getName() + " dispatched!");
 
         // closing underlying PulsarClient
         client.close();

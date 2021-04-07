@@ -6,9 +6,9 @@ import example.booking.tasks.hotel.*;
 import io.infinitic.workflows.*;
 
 public class BookingWorkflowImpl extends Workflow implements BookingWorkflow {
-    private final CarRentalService carRentalService = task(CarRentalService.class);
-    private final FlightBookingService flightService = task(FlightBookingService.class);
-    private final HotelBookingService hotelService = task(HotelBookingService.class);
+    private final CarRentalService carRentalService = newTask(CarRentalService.class);
+    private final FlightBookingService flightService = newTask(FlightBookingService.class);
+    private final HotelBookingService hotelService = newTask(HotelBookingService.class);
 
     @Override
     public BookingResult book(
