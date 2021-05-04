@@ -1,13 +1,15 @@
 package example.booking.tasks.carRental;
 
-public class CarRentalCart {
-    private String cartId;
+import java.util.UUID;
 
-    public CarRentalCart(String cartId) {
+public class CarRentalCart {
+    private UUID cartId = UUID.randomUUID();
+
+    public CarRentalCart(UUID cartId) {
         this.cartId = cartId;
     }
 
-    public String getCartId() {
+    public UUID getCartId() {
         return cartId;
     }
 

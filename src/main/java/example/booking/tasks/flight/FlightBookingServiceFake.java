@@ -1,6 +1,9 @@
 package example.booking.tasks.flight;
 
-public class FlightBookingServiceFake implements FlightBookingService {
+import io.infinitic.tasks.Task;
+import java.time.Duration;
+
+public class FlightBookingServiceFake extends Task implements FlightBookingService {
     @Override
     public FlightBookingResult book(FlightBookingCart cart) {
         // fake emulation of success/failure
@@ -33,8 +36,15 @@ public class FlightBookingServiceFake implements FlightBookingService {
         println(cart, "canceled");
     }
 
-    public Float getRetryDelay() {
-        return 5F;
+    // Exponential backoff retry strategy up to 6 attempts
+    @Override
+    public Duration getDurationBeforeRetry(Exception e) {
+        int n = context.getRetryIndex();
+        if (n < 6) {
+            return Duration.ofSeconds((long) (10 * Math.random() * Math.pow(2.0, n)));
+        } else {
+            return null;
+        }
     }
 
     private void println(FlightBookingCart cart, String msg) {
