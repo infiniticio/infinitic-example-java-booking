@@ -1,13 +1,15 @@
 package example.booking.tasks.hotel;
 
-public class HotelBookingCart {
-    private String cartId;
+import java.util.UUID;
 
-    public HotelBookingCart(String cartId) {
+public class HotelBookingCart {
+    private UUID cartId = UUID.randomUUID();
+
+    public HotelBookingCart(UUID cartId) {
         this.cartId = cartId;
     }
 
-    public String getCartId() {
+    public UUID getCartId() {
         return cartId;
     }
 

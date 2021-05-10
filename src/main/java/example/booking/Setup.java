@@ -1,13 +1,12 @@
 package example.booking;
 
-import io.infinitic.pulsar.InfiniticAdmin;
-import org.apache.pulsar.client.api.PulsarClientException;
+import io.infinitic.pulsar.PulsarInfiniticAdmin;
 
 public class Setup {
-    public static void main(String[] args) throws PulsarClientException {
-        InfiniticAdmin infiniticAdmin = InfiniticAdmin.fromConfigFile("configs/infinitic.yml");
+    public static void main(String[] args) {
+        PulsarInfiniticAdmin admin = PulsarInfiniticAdmin.fromConfigFile("configs/infinitic.yml");
 
-        infiniticAdmin.setupPulsar();
-        infiniticAdmin.close();
+        admin.setupPulsar();
+        admin.close();
     }
 }
