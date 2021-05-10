@@ -1,3 +1,4 @@
+
 tasks:
   - name: example.booking.tasks.carRental.CarRentalService
     class: example.booking.tasks.carRental.CarRentalServiceFake
