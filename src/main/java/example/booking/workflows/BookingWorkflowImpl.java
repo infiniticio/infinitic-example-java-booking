@@ -40,13 +40,13 @@ public class BookingWorkflowImpl extends Workflow implements BookingWorkflow {
             if (flightResult == FlightBookingResult.SUCCESS) { flightService.cancel(flightCart); }
             if (hotelResult == HotelBookingResult.SUCCESS) { hotelService.cancel(hotelCart); }
 
-            inline(() -> println("book canceled"));
+            inline(() -> println("book canceled  " + this.context.getId()));
 
             return BookingResult.FAILURE;
         }
 
         // everything went fine
-        inline(() -> println("book succeeded"));
+        inline(() -> println("book succeeded " + this.context.getId()));
 
         return BookingResult.SUCCESS;
     }
