@@ -7,6 +7,7 @@ public class Setup {
         PulsarInfiniticAdmin admin = PulsarInfiniticAdmin.fromConfigFile("configs/infinitic.yml");
 
         admin.setupPulsar();
+
         admin.close();
     }
 }
