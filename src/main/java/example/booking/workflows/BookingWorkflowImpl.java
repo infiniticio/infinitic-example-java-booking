@@ -19,9 +19,9 @@ public class BookingWorkflowImpl extends Workflow implements BookingWorkflow {
             HotelBookingCart hotelCart
     ) {
         // parallel bookings using car rental, flight and hotel services
-        Deferred<CarRentalResult> carRental = dispatch(carRentalService, t -> t.book(carRentalCart));
-        Deferred<FlightBookingResult> flight = dispatch(flightService, t -> t.book(flightCart));
-        Deferred<HotelBookingResult> hotel = dispatch(hotelService, t -> t.book(hotelCart));
+        Deferred<CarRentalResult> carRental = async(carRentalService, t -> t.book(carRentalCart));
+        Deferred<FlightBookingResult> flight = async(flightService, t -> t.book(flightCart));
+        Deferred<HotelBookingResult> hotel = async(hotelService, t -> t.book(hotelCart));
 
         // wait for completion of all deferred
         and(carRental, flight, hotel).await();
@@ -51,8 +51,9 @@ public class BookingWorkflowImpl extends Workflow implements BookingWorkflow {
         return BookingResult.SUCCESS;
     }
 
-    private Object println(String msg) {
-        System.out.println(this.getClass().getSimpleName() + ": " + msg);
-        return null;
+    private String println(String msg) {
+        System.out.println(msg);
+
+        return msg;
     }
 }

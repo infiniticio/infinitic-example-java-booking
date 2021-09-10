@@ -11,7 +11,6 @@ import io.infinitic.factory.InfiniticClientFactory;
 
 public class Client {
     public static void main(String[] args) {
-        // instantiate Infinitic client based on infinitic.yml config file
         try(InfiniticClient client = InfiniticClientFactory.fromConfigFile("configs/infinitic.yml")) {
             int i = 0;
             while (i < 1) {
