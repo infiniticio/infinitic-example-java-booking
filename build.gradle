@@ -30,12 +30,6 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-task setupPulsar(type: JavaExec) {
-    group = "infinitic"
-    main = "example.booking.Setup"
-    classpath = sourceSets.main.runtimeClasspath
-}
-
 task startWorkflow(type: JavaExec) {
     group = "infinitic"
     main = "example.booking.Client"
