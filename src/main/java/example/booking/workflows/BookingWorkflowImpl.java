@@ -5,12 +5,15 @@ import example.booking.tasks.flight.*;
 import example.booking.tasks.hotel.*;
 import io.infinitic.workflows.*;
 
-import static io.infinitic.workflows.DeferredKt.and;
-
 public class BookingWorkflowImpl extends Workflow implements BookingWorkflow {
+    // create stub for CarRentalService
     private final CarRentalService carRentalService = newTask(CarRentalService.class);
-    private final FlightBookingService flightService = newTask(FlightBookingService.class);
-    private final HotelBookingService hotelService = newTask(HotelBookingService.class);
+    // create stub for FlightBookingService
+    private final FlightBookingService flightBookingService = newTask(FlightBookingService.class);
+    // create stub for HotelBookingService
+    private final HotelBookingService hotelBookingService = newTask(HotelBookingService.class);
+
+    final Channel<String> notificationChannel = channel();
 
     @Override
     public BookingResult book(
@@ -18,18 +21,17 @@ public class BookingWorkflowImpl extends Workflow implements BookingWorkflow {
             FlightBookingCart flightCart,
             HotelBookingCart hotelCart
     ) {
-        // parallel bookings using car rental, flight and hotel services
-        Deferred<CarRentalResult> carRental = async(carRentalService, t -> t.book(carRentalCart));
-        Deferred<FlightBookingResult> flight = async(flightService, t -> t.book(flightCart));
-        Deferred<HotelBookingResult> hotel = async(hotelService, t -> t.book(hotelCart));
+        // dispatch parallel bookings using car, flight and hotel services
+        Deferred<CarRentalResult> deferredCarRental = dispatch(carRentalService::book, carRentalCart);
+        Deferred<FlightBookingResult> deferredFlightBooking = dispatch(flightBookingService::book, flightCart);
+        Deferred<HotelBookingResult> deferredHotelBooking = dispatch(hotelBookingService::book, hotelCart);
 
-        // wait for completion of all deferred
-        and(carRental, flight, hotel).await();
-
-        // wait and assign results
-        CarRentalResult carRentalResult = carRental.await(); // assign result for CarRentalService::book
-        FlightBookingResult flightResult = flight.await(); // assign result for FlightService::book method
-        HotelBookingResult hotelResult = hotel.await(); // assign result for HotelService::book method
+        // wait and get result of deferred CarRentalService::book
+        CarRentalResult carRentalResult = deferredCarRental.await();
+        // wait and get result of deferred FlightService::book
+        FlightBookingResult flightResult = deferredFlightBooking.await();
+        // wait and get result of deferred HotelService::book
+        HotelBookingResult hotelResult = deferredHotelBooking.await();
 
         // if at least one of the booking is failed than cancel all successful bookings
         if (carRentalResult == CarRentalResult.FAILURE ||
@@ -37,23 +39,17 @@ public class BookingWorkflowImpl extends Workflow implements BookingWorkflow {
             hotelResult == HotelBookingResult.FAILURE
         ) {
             if (carRentalResult == CarRentalResult.SUCCESS) { carRentalService.cancel(carRentalCart); }
-            if (flightResult == FlightBookingResult.SUCCESS) { flightService.cancel(flightCart); }
-            if (hotelResult == HotelBookingResult.SUCCESS) { hotelService.cancel(hotelCart); }
+            if (flightResult == FlightBookingResult.SUCCESS) { flightBookingService.cancel(flightCart); }
+            if (hotelResult == HotelBookingResult.SUCCESS) { hotelBookingService.cancel(hotelCart); }
 
-            inline(() -> println("book canceled  " + this.context.getId()));
+            // printing is done through an inline task
+            inlineVoid(() -> System.out.println("book canceled  " + this.context.getId()));
 
             return BookingResult.FAILURE;
         }
-
-        // everything went fine
-        inline(() -> println("book succeeded " + this.context.getId()));
+        // printing is done through an inline task
+        inlineVoid(() -> System.out.println("book succeeded " + this.context.getId()));
 
         return BookingResult.SUCCESS;
-    }
-
-    private String println(String msg) {
-        System.out.println(msg);
-
-        return msg;
     }
 }

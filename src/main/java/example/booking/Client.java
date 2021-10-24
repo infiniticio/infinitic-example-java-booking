@@ -12,21 +12,18 @@ import io.infinitic.factory.InfiniticClientFactory;
 public class Client {
     public static void main(String[] args) {
         try(InfiniticClient client = InfiniticClientFactory.fromConfigFile("configs/infinitic.yml")) {
+            // create a stub for BookingWorkflow
+            BookingWorkflow bookingWorkflow = client.newWorkflow(BookingWorkflow.class);
+
             int i = 0;
-            while (i < 1) {
+            while (i < 100) {
                 // faking some carts
                 CarRentalCart carRentalCart = new CarRentalCart();
                 FlightBookingCart flightCart = new FlightBookingCart();
                 HotelBookingCart hotelCart = new HotelBookingCart();
 
-                // create a stub for BookingWorkflow
-                BookingWorkflow bookingWorkflow = client.newWorkflow(BookingWorkflow.class);
-
                 // dispatch workflow
-                Deferred<BookingResult> deferred = client.async(
-                        bookingWorkflow,
-                        w -> w.book(carRentalCart, flightCart, hotelCart)
-                );
+                Deferred<BookingResult> deferred = client.dispatch(bookingWorkflow::book, carRentalCart, flightCart, hotelCart);
 
                 System.out.println("workflow " + BookingWorkflow.class.getName() + " " + deferred.getId() + " dispatched!");
 

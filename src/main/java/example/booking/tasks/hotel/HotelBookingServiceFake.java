@@ -1,6 +1,8 @@
 package example.booking.tasks.hotel;
 
 import io.infinitic.tasks.Task;
+import org.jetbrains.annotations.NotNull;
+
 import java.time.Duration;
 
 public class HotelBookingServiceFake extends Task implements HotelBookingService {
@@ -22,11 +24,10 @@ public class HotelBookingServiceFake extends Task implements HotelBookingService
             return HotelBookingResult.FAILURE;
         }
 
-        // uncomment lines below to test task retries
-//        if (r >= 3000 ) {
-//            println(cart, "exception! (retry in " + getRetryDelay() + " seconds)");
-//            throw new RuntimeException("failing request");
-//        }
+        if (r >= 3000 ) {
+            println(cart, "exception!");
+            throw new RuntimeException("failing request");
+        }
 
         println(cart, "succeeded");
         return HotelBookingResult.SUCCESS;
@@ -39,7 +40,7 @@ public class HotelBookingServiceFake extends Task implements HotelBookingService
 
     // Exponential backoff retry strategy up to 6 attempts
     @Override
-    public Duration getDurationBeforeRetry(Exception e) {
+    public Duration getDurationBeforeRetry(@NotNull Exception e) {
         int n = context.getRetryIndex();
         if (n < 6) {
             return Duration.ofSeconds((long) (10 * Math.random() * Math.pow(2.0, n)));
