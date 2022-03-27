@@ -13,8 +13,6 @@ public class BookingWorkflowImpl extends Workflow implements BookingWorkflow {
     // create stub for HotelBookingService
     private final HotelBookingService hotelBookingService = newTask(HotelBookingService.class);
 
-    final Channel<String> notificationChannel = channel();
-
     @Override
     public BookingResult book(
             CarRentalCart carRentalCart,

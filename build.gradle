@@ -8,15 +8,17 @@ plugins {
 
 repositories {
     mavenCentral()
+    // necessary for the dashboard
+    maven { url = "https://jitpack.io" }
 }
 
 dependencies {
-    // to be removed with Pulsar 1.8 https://github.com/apache/pulsar/issues/9045
-    implementation("org.apache.avro:avro") { version { strictly("1.9.+") } }
     // add a logger
-    implementation "org.slf4j:slf4j-simple:1.7.+"
-    // add Infinitic lib
-    implementation "io.infinitic:infinitic-factory:0.8.0"
+    implementation 'org.slf4j:slf4j-simple:1.7.36'
+    // infinitic framework
+    implementation "io.infinitic:infinitic-factory:0.9.0"
+    // infinitic dashboard
+    implementation "io.infinitic:infinitic-dashboard:0.9.0"
 }
 
 application {
@@ -29,8 +31,14 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-task startWorkflow(type: JavaExec) {
+task dispatch(type: JavaExec) {
     group = "infinitic"
     main = "example.booking.Client"
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task dashboard(type: JavaExec) {
+    group = "infinitic"
+    main = "example.booking.Dashboard"
     classpath = sourceSets.main.runtimeClasspath
 }
