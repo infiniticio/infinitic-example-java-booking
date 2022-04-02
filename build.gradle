@@ -16,19 +16,14 @@ dependencies {
     // add a logger
     implementation 'org.slf4j:slf4j-simple:1.7.36'
     // infinitic framework
-    implementation "io.infinitic:infinitic-factory:0.9.0"
+    implementation "io.infinitic:infinitic-factory:0.9.3"
     // infinitic dashboard
-    implementation "io.infinitic:infinitic-dashboard:0.9.0"
+    implementation "io.infinitic:infinitic-dashboard:0.9.3"
 }
 
 application {
     // Define the main class for the application.
     mainClassName = "example.booking.Worker"
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 task dispatch(type: JavaExec) {

@@ -5,10 +5,6 @@ import java.util.UUID;
 public class HotelBookingCart {
     private UUID cartId = UUID.randomUUID();
 
-    public HotelBookingCart(UUID cartId) {
-        this.cartId = cartId;
-    }
-
     public UUID getCartId() {
         return cartId;
     }

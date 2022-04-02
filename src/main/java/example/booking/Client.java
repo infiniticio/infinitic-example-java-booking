@@ -4,14 +4,14 @@ import example.booking.tasks.carRental.CarRentalCart;
 import example.booking.tasks.flight.FlightBookingCart;
 import example.booking.tasks.hotel.HotelBookingCart;
 import example.booking.workflows.BookingWorkflow;
-import io.infinitic.common.clients.InfiniticClient;
+import io.infinitic.clients.InfiniticClient;
 import io.infinitic.factory.InfiniticClientFactory;
 
 import java.io.IOException;
 
 public class Client {
     public static void main(String[] args) throws IOException {
-        try(InfiniticClient client = InfiniticClientFactory.fromConfigFile("configs/infinitic.yml")) {
+        try(InfiniticClient client = InfiniticClientFactory.fromConfigResource("/configs/infinitic.yml")) {
             // create a stub for BookingWorkflow
             BookingWorkflow bookingWorkflow = client.newWorkflow(BookingWorkflow.class);
 
@@ -26,7 +26,7 @@ public class Client {
                 // dispatch workflow
                 client.dispatchAsync(bookingWorkflow::book, carRentalCart, flightCart, hotelCart)
                         .thenApply( (deferred) ->  {
-                            System.out.println("Workflow " + BookingWorkflow.class.getName() + " " + deferred.getId() + " (" + strI + ") dispatched!");
+                            System.out.println("Workflow " + deferred.getId() + " (" + strI + ") dispatched!");
 
                             return null;
                         })
