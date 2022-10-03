@@ -1,6 +1,6 @@
 package example.booking;
 
-import io.infinitic.dashboard.DashboardServer;
+import io.infinitic.dashboard.InfiniticDashboard;
 
 public class Dashboard {
     public static void main(String[] args) {
@@ -12,6 +12,6 @@ public class Dashboard {
             file = "/configs/infinitic.yml";
         }
         // start server on port defined in infinitic.yml
-        DashboardServer.fromConfigResource(file).start();
+        InfiniticDashboard.fromConfigResource(file).start();
     }
 }

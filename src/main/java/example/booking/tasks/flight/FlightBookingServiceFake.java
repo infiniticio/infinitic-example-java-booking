@@ -9,7 +9,7 @@ public class FlightBookingServiceFake extends Task implements FlightBookingServi
     @Override
     public FlightBookingResult book(FlightBookingCart cart) {
         // fake emulation of success/failure
-        println(cart, "booking ...");
+        println("start flight booking ...");
 
         long r = (long) (Math.random() * 5000);
         try {
@@ -19,22 +19,22 @@ public class FlightBookingServiceFake extends Task implements FlightBookingServi
         }
 
         if (r >= 4000) {
-            println(cart, "failed");
+            println("flight booking failed");
             return FlightBookingResult.FAILURE;
         }
 
         if (r >= 3000 ) {
-            println(cart, "exception!");
+            println("flight booking threw exception!");
             throw new RuntimeException("failing request");
         }
 
-        println(cart, "succeeded");
+        println("flight booking succeeded");
         return FlightBookingResult.SUCCESS;
     }
 
     @Override
     public void cancel(FlightBookingCart cart) {
-        println(cart, "canceled");
+        println("flight booking canceled");
     }
 
     // Exponential backoff retry strategy up to 6 attempts
@@ -48,7 +48,7 @@ public class FlightBookingServiceFake extends Task implements FlightBookingServi
         }
     }
 
-    private void println(FlightBookingCart cart, String msg) {
-        System.out.println(this.getClass().getSimpleName() + "     (" + cart.getCartId() + "): " + msg);
+    private void println(String msg) {
+        System.out.println(context.getWorkflowId() + " - " + this.getClass().getSimpleName() + " - " + msg);
     }
 }

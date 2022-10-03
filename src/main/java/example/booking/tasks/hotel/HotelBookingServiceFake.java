@@ -9,7 +9,7 @@ public class HotelBookingServiceFake extends Task implements HotelBookingService
     @Override
     public HotelBookingResult book(HotelBookingCart cart) {
         // fake emulation of success/failure
-        println(cart, "booking...");
+        println("start hotel booking...");
 
         long r = (long) (Math.random() * 5000);
 
@@ -20,22 +20,22 @@ public class HotelBookingServiceFake extends Task implements HotelBookingService
         }
 
         if (r >= 4000) {
-            println(cart, "failed");
+            println("hotel booking failed");
             return HotelBookingResult.FAILURE;
         }
 
         if (r >= 3000 ) {
-            println(cart, "exception!");
+            println("hotel booking threw exception!");
             throw new RuntimeException("failing request");
         }
 
-        println(cart, "succeeded");
+        println("hotel booking succeeded");
         return HotelBookingResult.SUCCESS;
     }
 
     @Override
     public void cancel(HotelBookingCart cart) {
-        println(cart, "canceled");
+        println("hotel booking canceled");
     }
 
     // Exponential backoff retry strategy up to 6 attempts
@@ -49,7 +49,7 @@ public class HotelBookingServiceFake extends Task implements HotelBookingService
         }
     }
 
-    private void println(HotelBookingCart cart, String msg) {
-        System.out.println(this.getClass().getSimpleName() + "     (" + cart.getCartId() + "): " + msg);
+    private void println(String msg) {
+        System.out.println(context.getWorkflowId() + " - " + this.getClass().getSimpleName() + " - " + msg);
     }
 }

@@ -5,18 +5,15 @@ import example.booking.tasks.flight.FlightBookingCart;
 import example.booking.tasks.hotel.HotelBookingCart;
 import example.booking.workflows.BookingWorkflow;
 import io.infinitic.clients.InfiniticClient;
-import io.infinitic.factory.InfiniticClientFactory;
-
-import java.io.IOException;
 
 public class Client {
-    public static void main(String[] args) throws IOException {
-        try(InfiniticClient client = InfiniticClientFactory.fromConfigResource("/configs/infinitic.yml")) {
+    public static void main(String[] args) {
+        try(InfiniticClient client = InfiniticClient.fromConfigResource("/configs/infinitic.yml")) {
             // create a stub for BookingWorkflow
             BookingWorkflow bookingWorkflow = client.newWorkflow(BookingWorkflow.class);
 
             int i = 0;
-            while (i < 10) {
+            while (i < 20) {
                 String strI = String.valueOf(i);
                 // faking some carts
                 CarRentalCart carRentalCart = new CarRentalCart();

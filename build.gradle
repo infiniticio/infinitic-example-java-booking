@@ -1,7 +1,6 @@
 plugins {
     // Apply the java plugin to add support for Java
     id 'java'
-
     // Apply the application plugin to add support for building a CLI application.
     id 'application'
 }
@@ -10,15 +9,21 @@ repositories {
     mavenCentral()
     // necessary for the dashboard
     maven { url = "https://jitpack.io" }
+    // for local development
+    mavenLocal()
 }
 
 dependencies {
-    // add a logger
-    implementation 'org.slf4j:slf4j-simple:1.7.36'
-    // infinitic framework
-    implementation 'io.infinitic:infinitic-factory:0.9.8'
-    // infinitic dashboard
-    implementation 'io.infinitic:infinitic-dashboard:0.9.8'
+    // Logger implementation
+    implementation 'org.slf4j:slf4j-simple:2.0.1'
+    // Infinitic version
+    String version = '0.10.0'
+    // Infinitic client
+    implementation 'io.infinitic:infinitic-client:' + version
+    // Infinitic worker
+    implementation 'io.infinitic:infinitic-worker:' + version
+    // Infinitic dashboard
+    implementation 'io.infinitic:infinitic-dashboard:' + version
 }
 
 application {

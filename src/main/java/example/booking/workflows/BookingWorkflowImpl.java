@@ -41,13 +41,17 @@ public class BookingWorkflowImpl extends Workflow implements BookingWorkflow {
             if (hotelResult == HotelBookingResult.SUCCESS) { hotelBookingService.cancel(hotelCart); }
 
             // printing is done through an inline task
-            inlineVoid(() -> System.out.println("book canceled  " + this.context.getId()));
+            println("booking failed");
 
             return BookingResult.FAILURE;
         }
         // printing is done through an inline task
-        inlineVoid(() -> System.out.println("book succeeded " + this.context.getId()));
+        println("booking succeeded");
 
         return BookingResult.SUCCESS;
+    }
+
+    private void println(String msg) {
+        inlineVoid(() -> System.out.println(context.getId() + " - " + this.getClass().getSimpleName() + " - " + msg));
     }
 }

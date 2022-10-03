@@ -9,7 +9,7 @@ public class CarRentalServiceFake extends Task implements CarRentalService {
     @Override
     public CarRentalResult book(CarRentalCart cart) {
         // fake emulation of success/failure
-        println(cart, "booking ...");
+        println("start car rental ...");
 
         long r = (long) (Math.random() * 5000);
         try {
@@ -19,22 +19,22 @@ public class CarRentalServiceFake extends Task implements CarRentalService {
         }
 
         if (r >= 4000) {
-            println(cart, "failed");
+            println("car rental failed");
             return CarRentalResult.FAILURE;
         }
 
         if (r >= 3000 ) {
-            println(cart, "exception!");
+            println("car rental threw exception!");
             throw new RuntimeException("failing request");
         }
 
-        println(cart, "succeeded");
+        println("car rental succeeded");
         return CarRentalResult.SUCCESS;
     }
 
     @Override
     public void cancel(CarRentalCart cart) {
-        println(cart, "canceled");
+        println("car rental canceled");
     }
 
     // Exponential backoff retry strategy up to 6 attempts
@@ -48,7 +48,7 @@ public class CarRentalServiceFake extends Task implements CarRentalService {
         }
     }
 
-    private void println(CarRentalCart cart, String msg) {
-        System.out.println(this.getClass().getSimpleName() + "     (" + cart.getCartId() + "): " + msg);
+    private void println(String msg) {
+        System.out.println(context.getWorkflowId() + " - " + this.getClass().getSimpleName() + " - " + msg);
     }
 }
