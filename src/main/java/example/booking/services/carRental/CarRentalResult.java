@@ -1,4 +1,4 @@
-package example.booking.tasks.carRental;
+package example.booking.services.carRental;
 
 public enum CarRentalResult {
     SUCCESS,

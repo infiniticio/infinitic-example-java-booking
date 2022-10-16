@@ -1,23 +1,19 @@
-package example.booking.tasks.carRental;
+package example.booking.services.flight;
 
 import java.util.UUID;
 
-public class CarRentalCart {
-    private UUID cartId = UUID.randomUUID();
-
-    public UUID getCartId() {
-        return cartId;
-    }
+public class FlightBookingCart {
+    private final UUID cartId = UUID.randomUUID();
 
     // code below is needed for serialization/deserialization
 
-    public CarRentalCart() { super(); }
+    public FlightBookingCart() { super(); }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CarRentalCart that = (CarRentalCart) o;
+        FlightBookingCart that = (FlightBookingCart) o;
         return cartId.equals(that.cartId);
     }
 

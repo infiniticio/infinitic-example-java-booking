@@ -1,4 +1,4 @@
-package example.booking.tasks.hotel;
+package example.booking.services.hotel;
 
 public enum HotelBookingResult {
     SUCCESS,

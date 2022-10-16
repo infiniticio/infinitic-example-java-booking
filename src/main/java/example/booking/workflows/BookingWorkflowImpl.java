@@ -1,17 +1,18 @@
 package example.booking.workflows;
 
-import example.booking.tasks.carRental.*;
-import example.booking.tasks.flight.*;
-import example.booking.tasks.hotel.*;
+import example.booking.services.carRental.*;
+import example.booking.services.flight.*;
+import example.booking.services.hotel.*;
 import io.infinitic.workflows.*;
 
+@SuppressWarnings("unused")
 public class BookingWorkflowImpl extends Workflow implements BookingWorkflow {
     // create stub for CarRentalService
-    private final CarRentalService carRentalService = newTask(CarRentalService.class);
+    private final CarRentalService carRentalService = newService(CarRentalService.class);
     // create stub for FlightBookingService
-    private final FlightBookingService flightBookingService = newTask(FlightBookingService.class);
+    private final FlightBookingService flightBookingService = newService(FlightBookingService.class);
     // create stub for HotelBookingService
-    private final HotelBookingService hotelBookingService = newTask(HotelBookingService.class);
+    private final HotelBookingService hotelBookingService = newService(HotelBookingService.class);
 
     @Override
     public BookingResult book(
@@ -19,6 +20,8 @@ public class BookingWorkflowImpl extends Workflow implements BookingWorkflow {
             FlightBookingCart flightCart,
             HotelBookingCart hotelCart
     ) {
+        log("booking started");
+
         // dispatch parallel bookings using car, flight and hotel services
         Deferred<CarRentalResult> deferredCarRental = dispatch(carRentalService::book, carRentalCart);
         Deferred<FlightBookingResult> deferredFlightBooking = dispatch(flightBookingService::book, flightCart);
@@ -41,17 +44,17 @@ public class BookingWorkflowImpl extends Workflow implements BookingWorkflow {
             if (hotelResult == HotelBookingResult.SUCCESS) { hotelBookingService.cancel(hotelCart); }
 
             // printing is done through an inline task
-            println("booking failed");
+            log("booking failed");
 
             return BookingResult.FAILURE;
         }
         // printing is done through an inline task
-        println("booking succeeded");
+        log("booking succeeded");
 
         return BookingResult.SUCCESS;
     }
 
-    private void println(String msg) {
-        inlineVoid(() -> System.out.println(context.getId() + " - " + this.getClass().getSimpleName() + " - " + msg));
+    private void log(String msg) {
+        inlineVoid(() -> System.out.println(getWorkflowId() + " - " + getWorkflowName() + " - " + msg));
     }
 }

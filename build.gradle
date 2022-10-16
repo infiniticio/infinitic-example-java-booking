@@ -7,17 +7,16 @@ plugins {
 
 repositories {
     mavenCentral()
+    mavenLocal()
     // necessary for the dashboard
     maven { url = "https://jitpack.io" }
-    // for local development
-    mavenLocal()
 }
 
 dependencies {
     // Logger implementation
-    implementation 'org.slf4j:slf4j-simple:2.0.1'
+    implementation 'org.slf4j:slf4j-simple:2.0.3'
     // Infinitic version
-    String version = '0.10.0'
+    String version = '0.11.0'
     // Infinitic client
     implementation 'io.infinitic:infinitic-client:' + version
     // Infinitic worker

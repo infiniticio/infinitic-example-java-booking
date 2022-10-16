@@ -1,4 +1,4 @@
-package example.booking.tasks.flight;
+package example.booking.services.flight;
 
 public enum FlightBookingResult {
     SUCCESS,
