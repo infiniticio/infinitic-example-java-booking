@@ -6,17 +6,15 @@ plugins {
 }
 
 repositories {
+    //mavenLocal()
     mavenCentral()
-    mavenLocal()
-    // necessary for the dashboard
-    maven { url = "https://jitpack.io" }
 }
 
 dependencies {
     // Logger implementation
     implementation 'org.slf4j:slf4j-simple:2.0.3'
     // Infinitic version
-    String version = '0.11.0'
+    String version = '0.12.0'
     // Infinitic client
     implementation 'io.infinitic:infinitic-client:' + version
     // Infinitic worker
@@ -30,14 +28,14 @@ application {
     mainClassName = "example.booking.Worker"
 }
 
-task dispatch(type: JavaExec) {
+tasks.register('dispatch', JavaExec) {
     group = "infinitic"
-    main = "example.booking.Client"
+    mainClass = "example.booking.Client"
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task dashboard(type: JavaExec) {
+tasks.register('dashboard', JavaExec) {
     group = "infinitic"
-    main = "example.booking.Dashboard"
+    mainClass = "example.booking.Dashboard"
     classpath = sourceSets.main.runtimeClasspath
 }

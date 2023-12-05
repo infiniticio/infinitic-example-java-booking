@@ -13,7 +13,7 @@ public class Client {
             BookingWorkflow bookingWorkflow = client.newWorkflow(BookingWorkflow.class);
 
             int i = 0;
-            while (i < 20) {
+            while (i < 50) {
                 String strI = String.valueOf(i);
                 // faking some carts
                 CarRentalCart carRentalCart = new CarRentalCart();
