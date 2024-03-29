@@ -10,16 +10,16 @@ This repository is described in the Infinitic documentation: https://docs.infini
 - If needed, update credentials in configs/infinitic.yml
 
 ## Running services separately
-- run bookingWorkflow service: `gradle run --args=/configs/bookingWorkflow.yml`
-- run carRental service: `gradle run --args=/configs/carRental.yml`
-- run flightBooking service: `gradle run --args=/configs/flightBooking.yml`
-- run hotelBooking service: `gradle run --args=/configs/hotelBooking.yml`
+- run bookingWorkflow service: `./gradlew run --args=/configs/bookingWorkflow.yml`
+- run carRental service: `./gradlew run --args=/configs/carRental.yml`
+- run flightBooking service: `./gradlew run --args=/configs/flightBooking.yml`
+- run hotelBooking service: `./gradlew run --args=/configs/hotelBooking.yml`
 
 ## Running services all together
 If you do not want to run each service separately, just `gradle run`
 
 ## Launch
-Launch one or more workflows! `gradle startWorkflow`
+Launch one or more workflows! `./gradlew startWorkflow`
 
 
 Note: workflows will never complete if one of services is not running. But,
